@@ -1,0 +1,115 @@
+PLY: PARSE DEBUG START
+
+State  : 0
+Stack  : . LexToken(NAME,'a',1,0)
+Action : Reduce rule [single_stmt -> <empty>] with [] and goto state 3
+Result : <list @ 0x7fa74e461e10> ([])
+
+State  : 2
+Stack  : single_stmt . LexToken(NAME,'a',1,0)
+Action : Shift and goto state 4
+
+State  : 4
+Stack  : single_stmt NAME . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [atom -> NAME] with ['a'] and goto state 90
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 37
+Stack  : single_stmt atom . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [power -> atom] with [<dict @ 0x7fa74e43cdd0>] and goto state 88
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 16
+Stack  : single_stmt power . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [factor -> power] with [<dict @ 0x7fa74e43cdd0>] and goto state 85
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 27
+Stack  : single_stmt factor . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [term -> factor] with [<dict @ 0x7fa74e43cdd0>] and goto state 81
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 43
+Stack  : single_stmt term . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [arith_expr -> term] with [<dict @ 0x7fa74e43cdd0>] and goto state 78
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 45
+Stack  : single_stmt arith_expr . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [shift_expr -> arith_expr] with [<dict @ 0x7fa74e43cdd0>] and goto state 75
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 19
+Stack  : single_stmt shift_expr . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [and_expr -> shift_expr] with [<dict @ 0x7fa74e43cdd0>] and goto state 73
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 25
+Stack  : single_stmt and_expr . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [xor_expr -> and_expr] with [<dict @ 0x7fa74e43cdd0>] and goto state 71
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 15
+Stack  : single_stmt xor_expr . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [expr -> xor_expr] with [<dict @ 0x7fa74e43cdd0>] and goto state 69
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 46
+Stack  : single_stmt expr . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [comparison -> expr] with [<dict @ 0x7fa74e43cdd0>] and goto state 61
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 42
+Stack  : single_stmt comparison . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [not_test -> comparison] with [<dict @ 0x7fa74e43cdd0>] and goto state 60
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 9
+Stack  : single_stmt not_test . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [and_test -> not_test] with [<dict @ 0x7fa74e43cdd0>] and goto state 57
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 35
+Stack  : single_stmt and_test . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [or_test -> and_test] with [<dict @ 0x7fa74e43cdd0>] and goto state 55
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 47
+Stack  : single_stmt or_test . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [test_expr -> or_test] with [<dict @ 0x7fa74e43cdd0>] and goto state 54
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a'})
+
+State  : 23
+Stack  : single_stmt test_expr . LexToken(EQUAL,'=',1,2)
+Action : Reduce rule [test -> test_expr] with [<dict @ 0x7fa74e43cdd0>] and goto state 53
+Result : <dict @ 0x7fa74e43cdd0> ({'type': 'REFERENCE_ERROR', 'name': 'a', ...)
+
+State  : 22
+Stack  : single_stmt test . LexToken(EQUAL,'=',1,2)
+Action : Shift and goto state 70
+
+State  : 70
+Stack  : single_stmt test EQUAL . LexToken(NUMBER,5,1,4)
+Action : Shift and goto state 53
+
+State  : 53
+Stack  : single_stmt test EQUAL NUMBER . LexToken(NEWLINE,'\n',1,5)
+Action : Reduce rule [atom -> NUMBER] with [5] and goto state 91
+Traceback (most recent call last):
+  File "codegen.py", line 195, in <module>
+    generateMIPSCode(code)
+  File "codegen.py", line 20, in generateMIPSCode
+    ST, TAC = z.parse(code)
+  File "/home/naylan/compiler/parser.py", line 985, in parse
+    self.parser.parse(lexer = self.mlexer, debug=True)
+  File "/home/naylan/compiler/yacc.py", line 201, in parse
+    return self.parsedebug(input,lexer,debug,tracking,tokenfunc)
+  File "/home/naylan/compiler/yacc.py", line 361, in parsedebug
+    p.callable(pslice)
+  File "/home/naylan/compiler/parser.py", line 842, in p_atom2
+    name = ST.getNewTempVar()
+  File "/home/naylan/compiler/symbolTable.py", line 32, in getNewTempVar
+    'scope'		: self.getCurrentScope(),
+  File "/home/naylan/compiler/symbolTable.py", line 60, in getCurrentScope
+    return self.scopeStack[len(self.scopeStack) - 1]["scopeName"]
+IndexError: list index out of range
