@@ -308,13 +308,13 @@ def p_expr_stmt(p):
 # print_stmt: 'print' [ test (',' test)* [','] ]
 def p_print_stmt(p):
 	"""print_stmt 	:	PRINT
-					|	PRINT testlist
+					|	PRINT LPAREN testlist RPAREN
 	"""
 	p[0] = dict()
 	if len(p)==2:
 		TAC.emit(ST.getCurrentScope(), '', '', '', 'PRINT')
 	else:
-		for item in p[2]:
+		for item in p[3]:
 			itemType = item.get('type')
 			if itemType not in ['STRING', 'NUMBER', 'BOOLEAN', 'UNDEFINED']:
 				error('Print', p)
@@ -953,6 +953,8 @@ def p_stmts(p):
 def p_error(p):
 	global haltExecution
 	haltExecution = True
+	print("\n\n***START PARSER ERROR***\n")
+	
 	try:
 		print "Syntax Error near '"+str(p.value)+ "' in line "+str(p.lineno - programLineOffset)
 	except:
@@ -960,18 +962,19 @@ def p_error(p):
 			print "Syntax Error in line "+str(p.lineno - programLineOffset)
 		except:
 			print "Syntax Error"
+	print("\n\n***END OF PARSER ERROR***\n")
 	sys.exit()
 
 def error(errorType, p):
 	global haltExecution
 	haltExecution = True
 	try:
-		print errorType +" Error near '"+str(p.value)+"' in line "+str(p.lineno - programLineOffset)
+		print "\n" + errorType +" Error near '"+str(p.value)+"' in line "+str(p.lineno - programLineOffset)
 	except:
 		try:
-			print errorType + " Error in line "+str(p.lineno - programLineOffset)
+			print "\n" + errorType + " Error in line "+str(p.lineno - programLineOffset)
 		except:
-			print errorType + " Error"
+			print "\n" +errorType + " Error"
 	sys.exit()
 
 class G1Parser(object):
@@ -983,7 +986,7 @@ class G1Parser(object):
 	def parse(self, code):
 		# initializeTF()	
 		self.mlexer.input(code)
-		self.parser.parse(lexer = self.mlexer, debug=True)
+		self.parser.parse(lexer = self.mlexer, debug=False)
 		return ST, TAC
 		
 def initializeTF():
@@ -995,3 +998,11 @@ def initializeTF():
 
 ST = symbolTable.SymbolTable()
 TAC = tac.ThreeAddressCode()
+
+if __name__ == "__main__":
+	z = G1Parser()
+	filename = sys.argv[1]
+	data = open(filename).read()
+	z.parse(data)
+
+	

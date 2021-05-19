@@ -312,10 +312,17 @@ class G1Lexer(object):
 		except StopIteration:
 			return None
 
-# g1 = G1Lexer()
-# data = open('../test/test1.py').read()
-# g1.input(data)
-# t = g1.token()
-# while t:
-# 	print t
-# 	t = g1.token()
+if __name__ == "__main__":
+	g1 = G1Lexer()
+
+	print "\n\n** START SCANNER OUTPUT **\n\n"
+
+	filename = sys.argv[1]
+	data = open(filename).read()
+	g1.input(data)
+	t = g1.token()
+	while t:
+		print t
+		t = g1.token()
+
+	print "\n\n** END OF SCANNER OUTPUT **\n\n"

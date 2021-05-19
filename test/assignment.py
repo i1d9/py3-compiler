@@ -1,10 +1,10 @@
 a = 10
 b = 20
-print a
-print b
+print(a)
+print(b)
 c = a + b
-print c
+print(c)
 b = a * c
-print b
+print(b)
 b = b*b
-print b
+print(b)
